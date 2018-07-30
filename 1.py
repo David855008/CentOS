@@ -8,6 +8,7 @@ if os.path.isfile('pandas_simple.xlsx'):
 df = pd.read_excel('Deleted.xlsx',sheet_name = 'Raw Data')
 new_list = []
 old_list = []
+extra_list = []
 count_reply = 0
 count_trigger = 0
 countnew = 0
@@ -19,6 +20,11 @@ listNeg = df['負面強度']
 listMode = df['情緒標記']
 listLink = df['原始連結']
 listCate = df['主文/回文']
+for i in listCate:
+	if '回文' in i:
+		extra_list.append('回文')
+	else:
+		extra_list.append('主文')
 for (i,j) in zip(reversed(listCate),reversed(listTitle)):
 	if i == '主文':
 		new_list.append(j)
@@ -34,6 +40,10 @@ for (i,j) in zip(reversed(listCate),reversed(listTitle)):
 				count_trigger+=1
 
 counter = Counter(listCate)
+counterGB = Counter(extra_list)
+print(counterGB.get('主文'))
+print(counterGB.get('回文'))
+#print(extra_list)
 #print(counter.get('主文'))
 mode = listMode.value_counts()
 dw = pd.DataFrame({'總文章數': [listTopic.count()],
