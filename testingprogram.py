@@ -5,7 +5,7 @@ from hanziconv import HanziConv
 
 # 讀檔：一條一條讀進來
 fileTrainRead = []
-with open('corpus_simpl.txt') as      fileTrainRaw:
+with open('corpus123.txt',"rb") as      fileTrainRaw:
   for line in fileTrainRaw:
       fileTrainRead.append(HanziConv.toTraditional(line)) # 簡轉繁
       # 斷詞
@@ -16,7 +16,7 @@ for i in range(len(fileTrainRead)):
     if i % 50000 == 0 :
         print (i)
 # 精確模式、同時也是預設模式
-seg_list1 = jieba.cut("一是嬰兒哭啼二是學遊戲三是青春物語四是碰巧遇見你", cut_all=False)
+seg_list1 = jieba.cut('corpus123.txt', cut_all=False)
 print( "Default Mode: " + "/ ".join(seg_list1)  )
 # 將jieba的斷詞產出存檔
 fileSegWordDonePath ='corpusSegDone.txt'
