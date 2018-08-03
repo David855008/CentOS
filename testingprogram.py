@@ -1,6 +1,9 @@
 #coding=utf-8
 import jieba 
 import word2vec
+import matplotlib
+from matplotlib import font_manager
+import matplotlib.pyplot as plt
 from hanziconv import HanziConv
 
 # 讀檔：一條一條讀進來
@@ -31,25 +34,12 @@ PrintListChinese(fileTrainSeg[10])
 # jieba分詞轉word2vec向量
 word2vec.word2vec('corpusSegDone.txt', 'corpusWord2Vec.bin', size=300,verbose=True)
 model = word2vec.load('corpusWord2Vec.bin')
-#for i in range(5,10):
-#    print (model.vocab[i])
-"""for i in range(995,1000):
-    print (model.vocab[i])"""
-zhfont = matplotlib.font_manager.FontProperties(fname='/Users/youngmihuang/Downloads/wqy-microhei.ttc')
-# 畫圖
-fig = plt.figure()
-ax = fig.add_subplot(111)
- 
-for i in index1:
-    ax.text(X_reduced[i][0],X_reduced[i][1],model.vocab[i], fontproperties=zhfont,color='C3')
-for i in index2:
-    ax.text(X_reduced[i][0],X_reduced[i][1],model.vocab[i], fontproperties = zhfont,color= 'C1')
-for i in index3:
-    ax.text(X_reduced[i][0],X_reduced[i][1],model.vocab[i], fontproperties=zhfont,color='C7')
-for i in index4:
-    ax.text(X_reduced[i][0],X_reduced[i][1],model.vocab[i], fontproperties=zhfont,color='C0')
-for i in index5:
-    ax.text(X_reduced[i][0],X_reduced[i][1],model.vocab[i], fontproperties=zhfont,color='C4')
-ax.axis([0,0.5,-0.2,0.6])
-plt.figure(figsize=(60,60))
-plt.show()
+print(model.vocab.size)
+#for i in range(model.vocab.size):
+    #print (model.vocab[i])
+
+print("跟'遠傳'最相關的詞彙：")
+# '皮' 的相關字詞
+indexes = model.cosine(u'遠傳')
+for index in indexes[0]:
+    print (model.vocab[index])
