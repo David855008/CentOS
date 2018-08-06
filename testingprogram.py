@@ -1,9 +1,6 @@
-#coding=utf-8
+#oding=utf-8
 import jieba 
 import word2vec
-import matplotlib
-from matplotlib import font_manager
-import matplotlib.pyplot as plt
 from hanziconv import HanziConv
 
 # 讀檔：一條一條讀進來
@@ -39,7 +36,7 @@ print(model.vocab.size)
     #print (model.vocab[i])
 
 print("跟'遠傳'最相關的詞彙：")
-# '皮' 的相關字詞
+# '遠傳' 的相關字詞
 indexes = model.cosine(u'遠傳')
 for index in indexes[0]:
     print (model.vocab[index])
