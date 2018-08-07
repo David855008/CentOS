@@ -5,7 +5,7 @@ from hanziconv import HanziConv
 
 # 讀檔：一條一條讀進來
 fileTrainRead = []
-with open('test.txt',"rb") as      fileTrainRaw:
+with open('taiwanmobile.txt',"rb") as      fileTrainRaw:
   for line in fileTrainRaw:
       fileTrainRead.append(HanziConv.toTraditional(line)) # 簡轉繁
       # 斷詞
@@ -16,20 +16,39 @@ for i in range(len(fileTrainRead)):
     if i % 50000 == 0 :
         print (i)
 # 精確模式、同時也是預設模式
-seg_list1 = jieba.cut('corpus123.txt', cut_all=False)
+jieba.add_word('台灣大哥大')
+jieba.add_word('中華電信')
+jieba.add_word('台灣之星')
+jieba.add_word('攜碼')
+jieba.add_word('台哥大')
+jieba.add_word('中華')
+jieba.add_word('遠傳')
+jieba.add_word('基地台')
+jieba.add_word('亞太')
+jieba.add_word('或')
+jieba.add_word('台灣')
+jieba.add_word('之星')
+jieba.add_word('，')
+jieba.add_word('。')
+jieba.add_word('）')
+
+
+
+seg_list1 = jieba.cut('corpus123.txt', cut_all=True)
 print( "Default Mode: " + "/ ".join(seg_list1)  )
 # 將jieba的斷詞產出存檔
 fileSegWordDonePath ='corpusSegDone.txt'
 with open(fileSegWordDonePath,'wb') as fW:
     for i in range(len(fileTrainSeg)):
         fW.write(fileTrainSeg[i][0].encode('utf-8'))
+        print(fileTrainSeg[i][0])
 # 檢視斷詞jieba的結果
 def PrintListChinese(list):
     for i in range(len(list)):
         print (list[i],end=" ")
 PrintListChinese(fileTrainSeg[10])
 # jieba分詞轉word2vec向量
-word2vec.word2vec('corpusSegDone.txt', 'corpusWord2Vec.bin', size=300,verbose=True)
+word2vec.word2vec('corpusSegDone.txt', 'corpusWord2Vec.bin', size=100,verbose=True)
 model = word2vec.load('corpusWord2Vec.bin')
 print(model.vocab.size)
 #for i in range(model.vocab.size):
