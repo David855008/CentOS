@@ -15,6 +15,9 @@ for i in range(len(fileTrainRead)):
 # 因為會跑很久，檢核是否資料有持續在跑
     if i % 50000 == 0 :
         print (i)
+
+jieba.set_dictionary('dict.txt.big')
+jieba.load_userdict("dict.txt")
 # 精確模式、同時也是預設模式
 jieba.add_word('台灣大哥大')
 jieba.add_word('中華電信')
@@ -56,6 +59,6 @@ print(model.vocab.size)
 
 print("跟'遠傳'最相關的詞彙：")
 # '遠傳' 的相關字詞
-indexes = model.cosine(u'遠傳')
+indexes = model.cosine(u'中華')
 for index in indexes[0]:
     print (model.vocab[index])
