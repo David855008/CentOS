@@ -36,7 +36,7 @@ for i in range(len(fileTrainRead)):
     fileTrainRead[i]=fileTrainRead[i].replace('或','')
     fileTrainRead[i]=fileTrainRead[i].replace('及','')
     fileTrainRead[i]=fileTrainRead[i].replace('這','') 
-    fileTrainRead[i]=fileTrainRead[i].replace('大','') 
+    #fileTrainRead[i]=fileTrainRead[i].replace('大','') 
     fileTrainRead[i]=fileTrainRead[i].replace('與','') 
     fileTrainRead[i]=fileTrainRead[i].replace('跟','') 
     fileTrainSeg.append([' '.join(list(jieba.cut(fileTrainRead[i],cut_all=False)))])
@@ -66,6 +66,6 @@ print(model.vocab.size)
 
 print("跟'遠傳'最相關的詞彙：")
 # '遠傳' 的相關字詞
-indexes = model.cosine(u'中華電信')
+indexes = model.cosine(u'之星')
 for index in indexes[0]:
     print (model.vocab[index])
